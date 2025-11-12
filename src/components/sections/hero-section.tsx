@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Reveal, { RevealSlide } from "@/components/ui/reveal";
 
 export default function HeroSection() {
-  const currentProject = projects[0];
+  const currentWorking = "Aydn Labs";
 
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 lg:py-28 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center relative min-h-[80vh]">
@@ -108,7 +108,7 @@ export default function HeroSection() {
           <span className="font-fira text-xs sm:text-sm text-gray">
             Currently working on{" "}
             <span className="text-white font-semibold">
-              {currentProject.name}
+              {currentWorking}
             </span>
           </span>
         </motion.div>

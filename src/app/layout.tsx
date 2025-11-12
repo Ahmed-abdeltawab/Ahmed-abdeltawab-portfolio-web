@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import "@/app/globals.css";
 import SmoothScrollProvider from "@/components/providers/smooth-scroll-provider";
+import LoaderWrapper from "@/components/providers/loader-wrapper";
 import AnimatedBackground from "@/components/ui/animated-background";
 import Footer from "@/components/shared/footer";
 import Header from "@/components/shared/header";
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={firaCode.className}>
       <body>
-        <SmoothScrollProvider>
-          <AnimatedBackground />
-          <Header />
-          {children}
-          <Footer />
-        </SmoothScrollProvider>
+        <LoaderWrapper>
+          <SmoothScrollProvider>
+            <AnimatedBackground />
+            <Header />
+            {children}
+            <Footer />
+          </SmoothScrollProvider>
+        </LoaderWrapper>
       </body>
     </html>
   );
