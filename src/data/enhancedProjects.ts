@@ -65,8 +65,7 @@ export const enhancedProjects: Project[] = [
     img: "/ai-agent-rag.png",
     images: ["/ai-agent-rag.png", "/ai-agent-rag.png"],
     links: [
-      { type: "github", url: "https://github.com", label: "View Code" },
-      { type: "live", url: "https://demo.com", label: "Live Demo" },
+      { type: "live", url: "https://logodiffusion.com/", label: "Live Demo" },
     ],
     stats: {
       completion: 95,
@@ -117,6 +116,9 @@ export const enhancedProjects: Project[] = [
     points: [
       "Built an e-commerce platform for flowers and gifts with filtering, favorites, and responsive design.",
     ],
+    links: [
+      { type: "live", url: "https://life-ward.com/", label: "Live Demo" },
+    ],
     img: "/life-ward.jpeg",
     stats: {
       completion: 100,
@@ -136,6 +138,7 @@ export const enhancedProjects: Project[] = [
     role: "Front-End Developer",
     duration: "July 2023 – Sept 2023",
     techStack: ["ReactJS", "Redux Toolkit"],
+    links: [{ type: "live", url: "https://aswarmn.com/", label: "Live Demo" }],
     points: [
       "Developed responsive frontend application with modern design principles.",
       "Implemented state management using Redux Toolkit for efficient data flow.",
@@ -147,6 +150,34 @@ export const enhancedProjects: Project[] = [
     },
     year: 2023,
     color: "#00f7ff",
+  },
+  {
+    id: "5",
+    name: "YouTube Clone",
+    slug: "youtube-clone",
+    category: "Full-Stack",
+    description:
+      "Full-stack YouTube clone with video streaming and user authentication",
+    role: "Full-Stack Developer",
+    duration: "2 months",
+    techStack: ["ReactJS", "NodeJS", "ExpressJS", "MongoDB"],
+    points: [
+      "Built full-stack video streaming platform with user authentication",
+    ],
+    img: "/ai-agent-rag.png",
+    links: [
+      {
+        type: "live",
+        url: "https://media-youtube-clone.netlify.app/",
+        label: "Live Demo",
+      },
+    ],
+    stats: {
+      completion: 100,
+      duration: "2 months",
+    },
+    year: 2023,
+    color: "#4dabf7",
   },
 ];
 

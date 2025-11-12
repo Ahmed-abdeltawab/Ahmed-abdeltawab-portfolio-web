@@ -35,10 +35,10 @@ export default function Header() {
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
             </Link>
-            <Link href="/contacts" className="flex items-center group relative">
+            <Link href="/contact" className="flex items-center group relative">
               <span className="font-fira text-primary">#</span>
               <span className="font-fira text-gray hover:text-white transition-colors">
-                contacts
+                contact
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
             </Link>
