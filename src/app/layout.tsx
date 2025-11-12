@@ -3,6 +3,8 @@ import { Fira_Code } from "next/font/google";
 import "@/app/globals.css";
 import SmoothScrollProvider from "@/components/providers/smooth-scroll-provider";
 import AnimatedBackground from "@/components/ui/animated-background";
+import Footer from "@/components/shared/footer";
+import Header from "@/components/shared/header";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -22,7 +24,9 @@ export default function RootLayout({
       <body>
         <SmoothScrollProvider>
           <AnimatedBackground />
+          <Header />
           {children}
+          <Footer />
         </SmoothScrollProvider>
       </body>
     </html>

@@ -73,18 +73,48 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Send request to API route
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        }),
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+      const data = await response.json();
 
-    // Reset form
-    setTimeout(() => {
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsSuccess(false);
-      onSuccess?.();
-    }, 3000);
+      if (!response.ok || !data.success) {
+        // Handle error
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      // Success
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      // Reset form after success
+      setTimeout(() => {
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setIsSuccess(false);
+        onSuccess?.();
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      // Show error in UI
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to send message. Please try again.";
+      alert(errorMessage); // You can replace this with a toast notification
+      console.error("Contact form error:", error);
+    }
   };
 
   // Handle input change

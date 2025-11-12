@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import AboutHero from "@/components/about/about-hero";
-import SkillMeter from "@/components/about/skill-meter";
+import SkillBubble from "@/components/about/skill-bubble";
 import ExperienceTimeline from "@/components/about/experience-timeline";
 import Reveal from "@/components/ui/reveal";
 import {
@@ -105,23 +105,59 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section className="py-[4em] sm:py-[6em] bg-background/50">
-        <div className="container mx-auto px-[1em] sm:px-[2em]">
+      {/* Skills Section - Floating Glass Bubbles */}
+      <section className="relative py-[4em] sm:py-[8em] overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <div className="absolute inset-0 opacity-20">
+          <motion.div
+            className="absolute top-[10%] left-[10%] h-[30em] w-[30em] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, oklch(0.75 0.25 195) 0%, transparent 70%)",
+              filter: "blur(80px)",
+            }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, -30, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[20%] right-[15%] h-[25em] w-[25em] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, oklch(0.75 0.22 320) 0%, transparent 70%)",
+              filter: "blur(80px)",
+            }}
+            animate={{
+              x: [0, -40, 0],
+              y: [0, 40, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-[1em] sm:px-[2em]">
           <Reveal>
             <div className="mb-[3em] text-center">
               <h2 className="text-gradient-animated mb-[0.5em] text-[2.5em] sm:text-[3em] font-bold">
                 Skills & Expertise
               </h2>
               <p className="mx-auto max-w-[40em] text-[1.1em] text-foreground/70">
-                Proficient in modern web technologies with a focus on creating
-                exceptional user experiences
+                Hover over the bubbles to see proficiency levels
               </p>
             </div>
           </Reveal>
 
-          {/* Skills by Category */}
-          <div className="space-y-[4em]">
+          {/* Skills by Category - Floating Bubbles Layout */}
+          <div className="space-y-[6em]">
             {skillCategories.map((category) => {
               const categorySkills = getSkillsByCategory(skills, category);
               if (categorySkills.length === 0) return null;
@@ -129,24 +165,52 @@ export default function AboutPage() {
               return (
                 <div key={category}>
                   <Reveal>
-                    <h3 className="mb-[2em] text-[1.8em] font-bold text-foreground/90">
+                    <h3 className="mb-[3em] text-center text-[1.8em] font-bold text-foreground/90">
                       {category}
                     </h3>
                   </Reveal>
 
-                  <div className="grid gap-[1.5em] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {/* Floating bubble container */}
+                  <motion.div
+                    className="flex flex-wrap items-center justify-center gap-[2em] sm:gap-[3em]"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                  >
                     {categorySkills.map((skill, index) => (
-                      <SkillMeter
+                      <SkillBubble
                         key={skill.name}
                         skill={skill}
                         index={index}
                       />
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               );
             })}
           </div>
+
+          {/* Decorative floating elements */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute h-[0.5em] w-[0.5em] rounded-full bg-primary/30"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -50 - Math.random() * 50, 0],
+                opacity: [0.2, 0.6, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 5,
+                repeat: Infinity,
+                delay: i * 0.5,
+              }}
+            />
+          ))}
         </div>
       </section>
 
