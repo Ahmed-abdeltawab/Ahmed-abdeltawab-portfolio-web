@@ -1,16 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTheme } from "@/components/providers/theme-provider";
 
 export default function AnimatedBackground() {
+  const { currentTheme } = useTheme();
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-      {/* Liquid blobs */}
+      {/* Liquid blobs - now theme-aware */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 liquid-blob"
+        className="absolute top-1/4 left-1/4 w-96 h-96 liquid-blob transition-all duration-600"
         style={{
-          background:
-            "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)",
+          background: `radial-gradient(circle, ${currentTheme.colors.primaryGlow} 0%, transparent 70%)`,
+          filter: "blur(60px)",
         }}
         animate={{
           x: [0, 100, -50, 0],
@@ -25,10 +28,10 @@ export default function AnimatedBackground() {
       />
 
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] liquid-blob"
+        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] liquid-blob transition-all duration-600"
         style={{
-          background:
-            "radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%)",
+          background: `radial-gradient(circle, ${currentTheme.colors.accentGlow} 0%, transparent 70%)`,
+          filter: "blur(60px)",
         }}
         animate={{
           x: [0, -100, 50, 0],
@@ -43,10 +46,10 @@ export default function AnimatedBackground() {
       />
 
       <motion.div
-        className="absolute top-1/2 right-1/3 w-64 h-64 liquid-blob"
+        className="absolute top-1/2 right-1/3 w-64 h-64 liquid-blob transition-all duration-600"
         style={{
-          background:
-            "radial-gradient(circle, oklch(0.7 0.18 280 / 0.2) 0%, transparent 70%)",
+          background: `radial-gradient(circle, ${currentTheme.colors.gradient3}30 0%, transparent 70%)`,
+          filter: "blur(50px)",
         }}
         animate={{
           x: [0, 80, -80, 0],

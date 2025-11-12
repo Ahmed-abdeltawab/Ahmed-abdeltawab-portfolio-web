@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { Skill } from "@/data/about";
+import { useTheme } from "@/components/providers/theme-provider";
 
 interface SkillBubbleProps {
   skill: Skill;
@@ -11,6 +12,7 @@ interface SkillBubbleProps {
 
 export default function SkillBubble({ skill, index }: SkillBubbleProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { currentTheme } = useTheme();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -32,6 +34,9 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
   const baseSize = 3.5 + (skill.proficiency / 100) * 2; // 3.5em to 5.5em
   const size = `${baseSize}em`;
 
+  // Use theme colors if skill doesn't have custom color
+  const skillColor = skill.color || currentTheme.colors.primary;
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
@@ -52,14 +57,12 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
       <motion.div
         className="absolute inset-0 rounded-full opacity-40"
         style={{
-          background: `radial-gradient(circle at center, ${
-            skill.color || "#00f7ff"
-          }40 0%, transparent 70%)`,
+          background: `radial-gradient(circle at center, ${skillColor}40 0%, transparent 70%)`,
           filter: "blur(20px)",
         }}
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.4, 0.7, 0.4],
+          opacity: [0.4, 0.7 * currentTheme.colors.glowIntensity, 0.4],
         }}
         transition={{
           duration: 3,
@@ -73,9 +76,7 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
       <motion.div
         className="absolute -inset-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(circle at center, ${
-            skill.color || "#00f7ff"
-          }60 0%, transparent 70%)`,
+          background: `radial-gradient(circle at center, ${skillColor}60 0%, transparent 70%)`,
           filter: "blur(30px)",
         }}
       />
@@ -87,18 +88,14 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
         whileTap={{ scale: 0.95 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
         style={{
-          background: `linear-gradient(135deg, ${skill.color || "#00f7ff"}15, ${
-            skill.color || "#00f7ff"
-          }05)`,
+          background: `linear-gradient(135deg, ${skillColor}15, ${skillColor}05)`,
         }}
       >
         {/* Shimmer effect */}
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100"
           style={{
-            background: `linear-gradient(135deg, transparent 0%, ${
-              skill.color || "#00f7ff"
-            }30 50%, transparent 100%)`,
+            background: `linear-gradient(135deg, transparent 0%, ${skillColor}30 50%, transparent 100%)`,
           }}
           animate={{
             x: ["-100%", "200%"],
@@ -114,9 +111,7 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
         <motion.div
           className="absolute inset-0 rounded-full"
           style={{
-            background: `conic-gradient(from 0deg, transparent, ${
-              skill.color || "#00f7ff"
-            }40, transparent)`,
+            background: `conic-gradient(from 0deg, transparent, ${skillColor}40, transparent)`,
           }}
           animate={{ rotate: 360 }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -126,8 +121,8 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
         <div className="relative z-10 flex flex-col items-center justify-center text-center p-[0.5em]">
           {/* Skill name */}
           <span
-            className="text-[0.75em] font-bold leading-tight"
-            style={{ color: skill.color || "#00f7ff" }}
+            className="text-[0.75em] font-bold leading-tight transition-colors duration-600"
+            style={{ color: skillColor }}
           >
             {skill.name}
           </span>
@@ -147,7 +142,7 @@ export default function SkillBubble({ skill, index }: SkillBubbleProps) {
             key={i}
             className="absolute h-[0.25em] w-[0.25em] rounded-full opacity-0 group-hover:opacity-100"
             style={{
-              background: skill.color || "#00f7ff",
+              background: skillColor,
               left: `${20 + i * 30}%`,
               top: `${20 + i * 20}%`,
             }}

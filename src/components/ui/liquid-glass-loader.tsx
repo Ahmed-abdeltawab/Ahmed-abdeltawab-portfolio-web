@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { personalInfo } from "@/data/personalInfo";
+import { useTheme } from "@/components/providers/theme-provider";
 
 interface LiquidGlassLoaderProps {
   duration?: number; // Duration in milliseconds
@@ -14,6 +15,7 @@ export default function LiquidGlassLoader({
   onComplete,
 }: LiquidGlassLoaderProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const { currentTheme } = useTheme();
 
   useEffect(() => {
     // Set timer to hide loader
@@ -42,8 +44,7 @@ export default function LiquidGlassLoader({
             <motion.div
               className="absolute top-[20%] left-[10%] h-[30em] w-[30em] rounded-full opacity-30"
               style={{
-                background:
-                  "radial-gradient(circle, oklch(0.75 0.25 195) 0%, transparent 70%)",
+                background: `radial-gradient(circle, ${currentTheme.colors.primary} 0%, transparent 70%)`,
                 filter: "blur(80px)",
               }}
               animate={{
@@ -60,8 +61,7 @@ export default function LiquidGlassLoader({
             <motion.div
               className="absolute bottom-[20%] right-[10%] h-[25em] w-[25em] rounded-full opacity-30"
               style={{
-                background:
-                  "radial-gradient(circle, oklch(0.75 0.22 320) 0%, transparent 70%)",
+                background: `radial-gradient(circle, ${currentTheme.colors.accent} 0%, transparent 70%)`,
                 filter: "blur(80px)",
               }}
               animate={{
@@ -84,13 +84,16 @@ export default function LiquidGlassLoader({
             <motion.div
               className="absolute inset-0 rounded-full opacity-60"
               style={{
-                background:
-                  "radial-gradient(circle at center, oklch(0.75 0.25 195 / 0.6) 0%, oklch(0.75 0.22 320 / 0.4) 50%, transparent 70%)",
+                background: `radial-gradient(circle at center, ${currentTheme.colors.primaryGlow} 0%, ${currentTheme.colors.accentGlow} 50%, transparent 70%)`,
                 filter: "blur(40px)",
               }}
               animate={{
                 scale: [1, 1.4, 1],
-                opacity: [0.4, 0.8, 0.4],
+                opacity: [
+                  0.4 * currentTheme.colors.glowIntensity,
+                  0.8 * currentTheme.colors.glowIntensity,
+                  0.4 * currentTheme.colors.glowIntensity,
+                ],
               }}
               transition={{
                 duration: 2,
@@ -125,16 +128,14 @@ export default function LiquidGlassLoader({
                 }}
                 className="glass-strong relative h-[18em] w-[18em] sm:h-[22em] sm:w-[22em] rounded-full border-[0.15em] border-white/20 backdrop-blur-2xl shadow-2xl overflow-hidden"
                 style={{
-                  background:
-                    "linear-gradient(135deg, oklch(0.75 0.25 195 / 0.15), oklch(0.75 0.22 320 / 0.1))",
+                  background: `linear-gradient(135deg, ${currentTheme.colors.primary}15, ${currentTheme.colors.accent}10)`,
                 }}
               >
                 {/* Rotating gradient border effect */}
                 <motion.div
                   className="absolute inset-0 rounded-full opacity-50"
                   style={{
-                    background:
-                      "conic-gradient(from 0deg, transparent, oklch(0.75 0.25 195 / 0.6), transparent 120deg, oklch(0.75 0.22 320 / 0.6), transparent)",
+                    background: `conic-gradient(from 0deg, transparent, ${currentTheme.colors.primary}60, transparent 120deg, ${currentTheme.colors.accent}60, transparent)`,
                   }}
                   animate={{ rotate: 360 }}
                   transition={{
@@ -148,8 +149,8 @@ export default function LiquidGlassLoader({
                 <div
                   className="absolute inset-[1em] rounded-full"
                   style={{
-                    background:
-                      "radial-gradient(circle at 30% 30%, oklch(0.75 0.25 195 / 0.2), transparent 60%)",
+                    background: `radial-gradient(circle at 30% 30%, ${currentTheme.colors.primaryGlow}, transparent 60%)`,
+                    opacity: currentTheme.colors.glowIntensity * 0.8,
                   }}
                 />
 
@@ -157,8 +158,7 @@ export default function LiquidGlassLoader({
                 <motion.div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background:
-                      "linear-gradient(135deg, transparent 0%, oklch(0.75 0.25 195 / 0.3) 50%, transparent 100%)",
+                    background: `linear-gradient(135deg, transparent 0%, ${currentTheme.colors.primary}30 50%, transparent 100%)`,
                   }}
                   animate={{
                     x: ["-100%", "200%"],

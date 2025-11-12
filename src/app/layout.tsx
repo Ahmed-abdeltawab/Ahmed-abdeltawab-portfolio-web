@@ -3,9 +3,11 @@ import { Fira_Code } from "next/font/google";
 import "@/app/globals.css";
 import SmoothScrollProvider from "@/components/providers/smooth-scroll-provider";
 import LoaderWrapper from "@/components/providers/loader-wrapper";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import AnimatedBackground from "@/components/ui/animated-background";
 import Footer from "@/components/shared/footer";
 import Header from "@/components/shared/header";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -23,14 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={firaCode.className}>
       <body>
-        <LoaderWrapper>
-          <SmoothScrollProvider>
-            <AnimatedBackground />
-            <Header />
-            {children}
-            <Footer />
-          </SmoothScrollProvider>
-        </LoaderWrapper>
+        <ThemeProvider>
+          <LoaderWrapper>
+            <SmoothScrollProvider>
+              <AnimatedBackground />
+              <Header />
+              {children}
+              <Footer />
+              <ThemeToggle />
+            </SmoothScrollProvider>
+          </LoaderWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
