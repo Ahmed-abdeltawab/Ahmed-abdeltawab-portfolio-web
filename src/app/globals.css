@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+/* Custom dark mode variant using Tailwind CSS v4 syntax */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind CSS v4: Define theme variables using @theme directive */
+@theme {
+    /* Radius - using Tailwind v4 theme variables */
+    --radius-none: 0rem;
+    --radius: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Modern Liquid Glass Color Palette */
+    /* Deep cosmic background with subtle blue tint */
+    --color-background: oklch(0.15 0.02 250);
+    --color-foreground: oklch(0.98 0 0);
+
+    /* Glass card surfaces with transparency */
+    --color-card: oklch(0.22 0.035 260 / 0.7);
+    --color-card-foreground: oklch(0.98 0 0);
+
+    --color-popover: oklch(0.22 0.035 260 / 0.8);
+    --color-popover-foreground: oklch(0.98 0 0);
+
+    /* Vibrant liquid glass primary - cyan/electric blue */
+    --color-primary: oklch(0.7 0.19 230);
+    --color-primary-glow: oklch(0.7 0.19 230 / 0.3);
+    --color-primary-foreground: oklch(1 0 0);
+
+    /* Secondary glass surface */
+    --color-secondary: oklch(0.25 0.04 260 / 0.6);
+    --color-secondary-foreground: oklch(0.98 0 0);
+
+    /* Muted glass elements */
+    --color-muted: oklch(0.25 0.03 260 / 0.5);
+    --color-muted-foreground: oklch(0.7 0.02 250);
+
+    /* Accent color - vibrant purple/magenta */
+    --color-accent: oklch(0.68 0.24 310);
+    --color-accent-glow: oklch(0.68 0.24 310 / 0.3);
+    --color-accent-foreground: oklch(1 0 0);
+
+    /* Destructive with modern flair */
+    --color-destructive: oklch(0.6 0.25 25);
+    --color-destructive-foreground: oklch(1 0 0);
+
+    /* Glass borders and inputs */
+    --color-border: oklch(0.35 0.04 250 / 0.3);
+    --color-input: oklch(0.3 0.04 260 / 0.4);
+    --color-ring: oklch(0.7 0.19 230 / 0.5);
+
+    /* Custom Liquid Glass Surface Colors */
+    --color-surface: oklch(0.22 0.035 260 / 0.6);
+    --color-surface-alt: oklch(0.28 0.04 260 / 0.5);
+    --color-text-secondary: oklch(0.72 0.03 250);
+
+    /* Gradient stops for liquid effects */
+    --color-gradient-1: oklch(0.7 0.19 230);
+    /* Cyan */
+    --color-gradient-2: oklch(0.68 0.24 310);
+    /* Magenta */
+    --color-gradient-3: oklch(0.75 0.18 280);
+    /* Purple */
+    --color-gradient-4: oklch(0.65 0.2 190);
+    /* Teal */
+
+    /* Glass gray scale */
+    --color-gray: oklch(0.68 0.02 250);
+    --color-gray-dark: oklch(0.45 0.02 250);
+    --color-white: oklch(1 0 0);
+}
+
+
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+
+    body {
+        background-color: var(--color-background);
+        position: relative;
+        overflow-x: hidden;
+        color: var(--color-foreground);
+        font-family: var(--font-mono);
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background:
+            radial-gradient(circle at 20% 10%, var(--color-primary-glow) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, var(--color-accent-glow) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, oklch(0.7 0.18 280 / 0.15) 0%, transparent 60%);
+        animation: auroraMove 20s ease-in-out infinite;
+    }
+
+    @keyframes auroraMove {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.8;
+        }
+
+        25% {
+            transform: translate(10%, -5%) scale(1.1);
+            opacity: 0.6;
+        }
+
+        50% {
+            transform: translate(-5%, 10%) scale(1.05);
+            opacity: 0.9;
+        }
+
+        75% {
+            transform: translate(5%, -10%) scale(1.08);
+            opacity: 0.7;
+        }
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@layer utilities {
+
+    /* Liquid gradient text utility */
+    .text-gradient {
+        background-image: linear-gradient(135deg,
+                var(--color-gradient-1) 0%,
+                var(--color-gradient-2) 50%,
+                var(--color-gradient-3) 100%);
+        background-clip: text;
+        color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Animated liquid gradient */
+    .text-gradient-animated {
+        background: linear-gradient(270deg,
+                var(--color-gradient-1),
+                var(--color-gradient-2),
+                var(--color-gradient-3),
+                var(--color-gradient-4));
+        background-size: 400% 400%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: liquidGradient 8s ease infinite;
+    }
+
+    @keyframes liquidGradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Glass morphism card effect */
+    .glass {
+        background: var(--color-surface);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid var(--color-border);
+    }
+
+    .glass-strong {
+        background: var(--color-card);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        border: 1px solid oklch(0.4 0.05 250 / 0.4);
+    }
+
+    /* Glow effects */
+    .glow-primary {
+        box-shadow: 0 0 20px var(--color-primary-glow),
+            0 0 40px var(--color-primary-glow),
+            0 0 60px var(--color-primary-glow);
+    }
+
+    .glow-accent {
+        box-shadow: 0 0 20px var(--color-accent-glow),
+            0 0 40px var(--color-accent-glow);
+    }
+
+    /* Liquid gradient border */
+    .border-gradient {
+        position: relative;
+        border-width: 2px;
+        border-color: transparent;
+        background-clip: padding-box;
+    }
+
+    .border-gradient::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        padding: 2px;
+        background: linear-gradient(135deg,
+                var(--color-gradient-1) 0%,
+                var(--color-gradient-2) 50%,
+                var(--color-gradient-3) 100%);
+        mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+    }
+
+    /* Animated border gradient */
+    .border-gradient-animated {
+        position: relative;
+        border-width: 2px;
+        border-color: transparent;
+        background-clip: padding-box;
+    }
+
+    .border-gradient-animated::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        padding: 2px;
+        background: linear-gradient(270deg,
+                var(--color-gradient-1),
+                var(--color-gradient-2),
+                var(--color-gradient-3),
+                var(--color-gradient-4));
+        background-size: 400% 400%;
+        animation: liquidGradient 8s ease infinite;
+        mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+    }
+
+    /* Shimmer effect */
+    .shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .shimmer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                var(--color-primary-glow),
+                transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        to {
+            left: 100%;
+        }
+    }
+
+    /* Advanced glass variants */
+    .glass-card {
+        background: linear-gradient(135deg,
+                oklch(0.25 0.04 260 / 0.5) 0%,
+                oklch(0.22 0.035 260 / 0.6) 100%);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid oklch(0.4 0.05 250 / 0.3);
+        box-shadow:
+            0 8px 32px 0 rgba(31, 38, 135, 0.37),
+            inset 0 1px 0 0 oklch(1 0 0 / 0.1);
+    }
+
+    .glass-button {
+        background: linear-gradient(135deg,
+                var(--color-surface) 0%,
+                oklch(0.24 0.04 260 / 0.5) 100%);
+        backdrop-filter: blur(12px) saturate(150%);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        border: 1px solid var(--color-border);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-button:hover {
+        background: linear-gradient(135deg,
+                oklch(0.28 0.05 260 / 0.6) 0%,
+                oklch(0.26 0.045 260 / 0.55) 100%);
+        border-color: oklch(0.45 0.06 250 / 0.5);
+        transform: translateY(-2px);
+        box-shadow:
+            0 12px 40px var(--color-primary-glow),
+            0 4px 12px var(--color-accent-glow);
+    }
+
+    /* Frosted glass overlay */
+    .glass-overlay {
+        background: oklch(0.2 0.03 260 / 0.3);
+        backdrop-filter: blur(30px) saturate(200%) brightness(1.1);
+        -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.1);
+    }
+
+    /* Neon glow text */
+    .neon-text {
+        text-shadow:
+            0 0 10px var(--color-primary-glow),
+            0 0 20px var(--color-primary-glow),
+            0 0 30px var(--color-primary-glow),
+            0 0 40px var(--color-primary);
+    }
+
+    .neon-text-accent {
+        text-shadow:
+            0 0 10px var(--color-accent-glow),
+            0 0 20px var(--color-accent-glow),
+            0 0 30px var(--color-accent-glow);
+    }
+
+    /* Animated conic gradient background */
+    .conic-gradient {
+        background: conic-gradient(from 0deg at 50% 50%,
+                var(--color-gradient-1) 0deg,
+                var(--color-gradient-2) 90deg,
+                var(--color-gradient-3) 180deg,
+                var(--color-gradient-4) 270deg,
+                var(--color-gradient-1) 360deg);
+        animation: rotateConic 10s linear infinite;
+    }
+
+    @keyframes rotateConic {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Liquid blob animation */
+    .liquid-blob {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        animation: blobMorph 8s ease-in-out infinite;
+    }
+
+    @keyframes blobMorph {
+
+        0%,
+        100% {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        25% {
+            border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+        }
+
+        50% {
+            border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+        }
+
+        75% {
+            border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+        }
+    }
+
+    /* Floating animation */
+    .float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(2deg);
+        }
+    }
+
+    /* Pulse glow animation */
+    .pulse-glow {
+        animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+
+        0%,
+        100% {
+            box-shadow:
+                0 0 20px var(--color-primary-glow),
+                0 0 40px var(--color-primary-glow);
+        }
+
+        50% {
+            box-shadow:
+                0 0 30px var(--color-primary-glow),
+                0 0 60px var(--color-primary-glow),
+                0 0 80px var(--color-accent-glow);
+        }
+    }
+
+    /* Hover scale with glow */
+    .hover-scale-glow {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hover-scale-glow:hover {
+        transform: scale(1.05) translateZ(0);
+        box-shadow:
+            0 20px 60px var(--color-primary-glow),
+            0 10px 30px var(--color-accent-glow);
+    }
+
+    /* Gradient mesh background */
+    .gradient-mesh {
+        background:
+            radial-gradient(at 0% 0%, var(--color-gradient-1) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, var(--color-gradient-2) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, var(--color-gradient-3) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, var(--color-gradient-4) 0px, transparent 50%);
+        animation: meshMove 15s ease infinite;
+    }
+
+    @keyframes meshMove {
+
+        0%,
+        100% {
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+            background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%;
+        }
+
+        50% {
+            background-size: 120% 120%, 120% 120%, 120% 120%, 120% 120%;
+            background-position: 10% 10%, 90% 10%, 90% 90%, 10% 90%;
+        }
+    }
+
+    /* Reveal animation classes for Framer Motion */
+    .reveal-blur {
+        filter: blur(10px);
+        opacity: 0;
+    }
+
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg,
+                var(--color-gradient-1),
+                var(--color-gradient-2));
+        border-radius: 10px;
+        border: 2px solid var(--color-background);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg,
+                var(--color-gradient-2),
+                var(--color-gradient-3));
+    }
+}
