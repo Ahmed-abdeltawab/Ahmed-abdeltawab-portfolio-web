@@ -156,7 +156,8 @@ export default function AboutHero({ info }: AboutHeroProps) {
               transition={{ delay: 0.8 }}
             >
               <Link
-                href="/resume.pdf"
+                href="/cv/ahmed-abdelTawab-frontend-developer.pdf"
+                download={"ahmed-abdelTawab-frontend-developer.pdf"}
                 className="glass-button flex items-center gap-[0.5em] bg-primary/20 px-[1.5em] py-[0.75em] text-[0.95em] font-medium transition-all hover:scale-105 hover:bg-primary/30 rounded-[0.75em]"
               >
                 <Download className="h-[1.2em] w-[1.2em]" />
