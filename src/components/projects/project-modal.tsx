@@ -57,13 +57,13 @@ export default function ProjectModal({
   };
 
   // Prepare chart data for progress visualization
-  const progressData = [
-    {
-      name: "Completion",
-      value: project.stats?.completion || 0,
-      fill: "oklch(0.75 0.25 195)", // cyan
-    },
-  ];
+  // const progressData = [
+  //   {
+  //     name: "Completion",
+  //     value: project.stats?.completion || 0,
+  //     fill: "oklch(0.75 0.25 195)", // cyan
+  //   },
+  // ];
 
   // Prepare tech stack distribution for bar chart
   const techStackData = project.techStack.slice(0, 6).map((tech, index) => ({
@@ -267,7 +267,7 @@ export default function ProjectModal({
                   <TrendingUp className="h-[1.2em] w-[1.2em] text-primary" />
                   Project Progress
                 </h3>
-                <ResponsiveContainer width="100%" height={200}>
+                {/* <ResponsiveContainer width="100%" height={200}>
                   <RadialBarChart
                     cx="50%"
                     cy="50%"
@@ -299,7 +299,7 @@ export default function ProjectModal({
                       {project.stats?.completion || 0}%
                     </text>
                   </RadialBarChart>
-                </ResponsiveContainer>
+                </ResponsiveContainer> */}
               </div>
 
               {/* Tech Stack Distribution */}
