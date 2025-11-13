@@ -12,7 +12,6 @@ export interface ProjectLink {
 }
 
 export interface ProjectStats {
-  completion: number; // 0-100
   duration: string;
   team?: string;
 }
@@ -68,9 +67,8 @@ export const enhancedProjects: Project[] = [
       { type: "live", url: "https://logodiffusion.com/", label: "Live Demo" },
     ],
     stats: {
-      completion: 95,
       duration: "May 2025 – Present",
-      team: "Solo Project",
+      // team: "collaborative",
     },
     featured: true,
     year: 2025,
@@ -95,9 +93,8 @@ export const enhancedProjects: Project[] = [
     img: "/logo-diffusion1.webp",
     links: [{ type: "github", url: "https://github.com", label: "View Code" }],
     stats: {
-      completion: 100,
       duration: "May 2025",
-      team: "Collaborative",
+      // team: "Collaborative",
     },
     featured: true,
     year: 2025,
@@ -121,9 +118,8 @@ export const enhancedProjects: Project[] = [
     ],
     img: "/life-ward.jpeg",
     stats: {
-      completion: 100,
       duration: "3 months",
-      team: "Team of 3",
+      // team: "Collaborative",
     },
     year: 2024,
     color: "#4dabf7", // Soft Blue
@@ -143,9 +139,8 @@ export const enhancedProjects: Project[] = [
       "Developed responsive frontend application with modern design principles.",
       "Implemented state management using Redux Toolkit for efficient data flow.",
     ],
-    img: "/ai-agent-rag.png",
+    img: "/aswar-almanora.png",
     stats: {
-      completion: 100,
       duration: "3 months",
     },
     year: 2023,
@@ -164,7 +159,7 @@ export const enhancedProjects: Project[] = [
     points: [
       "Built full-stack video streaming platform with user authentication",
     ],
-    img: "/ai-agent-rag.png",
+    img: "/youtube-clone.png",
     links: [
       {
         type: "live",
@@ -173,7 +168,6 @@ export const enhancedProjects: Project[] = [
       },
     ],
     stats: {
-      completion: 100,
       duration: "2 months",
     },
     year: 2023,

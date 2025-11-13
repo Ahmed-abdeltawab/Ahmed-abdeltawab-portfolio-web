@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Github, Linkedin, Mail, MapPin, Download } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { PersonalInfo } from "@/data/about";
-import Link from "next/link";
+import GlassButton from "@/components/ui/glass-button";
+import { Download } from "lucide-react";
 interface AboutHeroProps {
   info: PersonalInfo;
 }
@@ -155,20 +156,19 @@ export default function AboutHero({ info }: AboutHeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <Link
+              <GlassButton
                 href="/cv/ahmed-abdelTawab-frontend-developer.pdf"
-                download={"ahmed-abdelTawab-frontend-developer.pdf"}
-                className="glass-button flex items-center gap-[0.5em] bg-primary/20 px-[1.5em] py-[0.75em] text-[0.95em] font-medium transition-all hover:scale-105 hover:bg-primary/30 rounded-[0.75em]"
+                download="ahmed-abdelTawab-frontend-developer.pdf"
+                variant="primary"
+                size="md"
+                icon={Download}
               >
-                <Download className="h-[1.2em] w-[1.2em]" />
                 Download CV
-              </Link>
-              <Link
-                href="/contact"
-                className="glass-button flex items-center gap-[0.5em] px-[1.5em] py-[0.75em] text-[0.95em] font-medium transition-all hover:scale-105 hover:bg-white/10 rounded-[0.75em]"
-              >
+              </GlassButton>
+
+              <GlassButton href="/contact" variant="secondary" size="md">
                 Get in Touch
-              </Link>
+              </GlassButton>
             </motion.div>
 
             {/* Social Links */}

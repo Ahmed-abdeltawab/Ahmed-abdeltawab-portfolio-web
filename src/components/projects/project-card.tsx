@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Github, ExternalLink, Calendar, Users } from "lucide-react";
 import { Project } from "@/data/enhancedProjects";
 import { useState } from "react";
@@ -9,7 +10,7 @@ import { useState } from "react";
 interface ProjectCardProps {
   project: Project;
   index: number;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function ProjectCard({
@@ -19,21 +20,15 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      whileHover={{ y: -12, scale: 1.02 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      onClick={onClick}
-      className="group relative cursor-pointer"
-    >
+  const handleClick = (e: React.MouseEvent) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
+  const content = (
+    <>
       {/* Glow effect on hover */}
       <motion.div
         className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -189,35 +184,6 @@ export default function ProjectCard({
             </div>
           </motion.div>
 
-          {/* Progress bar */}
-          {project.stats?.completion && (
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs text-gray">
-                <span>Completion</span>
-                <span className="font-semibold">
-                  {project.stats.completion}%
-                </span>
-              </div>
-              <div className="h-1.5 bg-surface rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${project.stats.completion}%` }}
-                  transition={{
-                    duration: 1,
-                    delay: index * 0.1 + 0.5,
-                    ease: "easeOut",
-                  }}
-                  className="h-full rounded-full"
-                  style={{
-                    background: `linear-gradient(90deg, ${
-                      project.color || "#00f7ff"
-                    }, ${project.color || "#00f7ff"}80)`,
-                  }}
-                />
-              </div>
-            </div>
-          )}
-
           {/* View Details button */}
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -229,6 +195,32 @@ export default function ProjectCard({
           </motion.button>
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ y: -12, scale: 1.02 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative cursor-pointer"
+    >
+      {onClick ? (
+        <div onClick={handleClick} className="block h-full">
+          {content}
+        </div>
+      ) : (
+        <Link href={`/works/${project.slug}`} className="block h-full">
+          {content}
+        </Link>
+      )}
     </motion.article>
   );
 }

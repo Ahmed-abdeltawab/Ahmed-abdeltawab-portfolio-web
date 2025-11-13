@@ -1,49 +1,42 @@
-'use client'
+"use client";
 
-import { useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import ProjectCard from '@/components/projects/project-card'
-import ProjectModal from '@/components/projects/project-modal'
-import ProjectsFilter from '@/components/projects/projects-filter'
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import ProjectCard from "@/components/projects/project-card";
+import ProjectsFilter from "@/components/projects/projects-filter";
 import {
   Project,
   ProjectCategory,
   enhancedProjects,
   filterProjectsByCategory,
   sortProjects,
-} from '@/data/enhancedProjects'
-import Reveal from '@/components/ui/reveal'
+} from "@/data/enhancedProjects";
+import Reveal from "@/components/ui/reveal";
 
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'All'>('All')
-  const [sortBy, setSortBy] = useState<'date' | 'name' | 'category'>('date')
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory | "All">(
+    "All"
+  );
+  const [sortBy, setSortBy] = useState<"date" | "name" | "category">("date");
 
   // Filter and sort projects
   const filteredAndSortedProjects = useMemo(() => {
     // First filter by category
     const filtered =
-      activeCategory === 'All'
+      activeCategory === "All"
         ? enhancedProjects
-        : filterProjectsByCategory(enhancedProjects, activeCategory)
+        : filterProjectsByCategory(enhancedProjects, activeCategory);
 
     // Then sort
-    return sortProjects(filtered, sortBy)
-  }, [activeCategory, sortBy])
+    return sortProjects(filtered, sortBy);
+  }, [activeCategory, sortBy]);
 
-  // Handle project card click
+  // Handle project card click - navigate to detail page
   const handleProjectClick = (project: Project) => {
-    setSelectedProject(project)
-    setIsModalOpen(true)
-  }
-
-  // Close modal
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    // Wait for animation to complete before clearing selection
-    setTimeout(() => setSelectedProject(null), 300)
-  }
+    router.push(`/works/${project.slug}`);
+  };
 
   return (
     <div className="min-h-screen py-[4em] sm:py-[6em]">
@@ -100,7 +93,7 @@ export default function ProjectsPage() {
                   No projects found in this category.
                 </p>
                 <button
-                  onClick={() => setActiveCategory('All')}
+                  onClick={() => setActiveCategory("All")}
                   className="glass-button mt-[1em] px-[1.5em] py-[0.75em] transition-all hover:scale-105"
                 >
                   View All Projects
@@ -110,15 +103,6 @@ export default function ProjectsPage() {
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Project Modal */}
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        />
-      )}
     </div>
-  )
+  );
 }

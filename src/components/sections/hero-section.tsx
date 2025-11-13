@@ -6,6 +6,8 @@ import { projects } from "@/data/projects";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Reveal, { RevealSlide } from "@/components/ui/reveal";
+import GlassButton from "@/components/ui/glass-button";
+import { Download, ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   const currentWorking = "Aydn Labs";
@@ -41,25 +43,30 @@ export default function HeroSection() {
           and TypeScript
         </p>
 
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <button className="glass-button px-6 py-3 sm:px-8 sm:py-4 font-fira font-medium text-sm sm:text-base text-white rounded-lg hover-scale-glow group relative overflow-hidden">
-            <span className="relative z-10 flex items-center gap-2">
-              Contact me
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </span>
-          </button>
+        <motion.div
+          className="flex flex-wrap gap-[1em]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <GlassButton
+            href="/contact"
+            variant="primary"
+            size="lg"
+            icon={ArrowRight}
+          >
+            Contact me
+          </GlassButton>
+
+          <GlassButton
+            href="/cv/ahmed-abdelTawab-frontend-developer.pdf"
+            download="ahmed-abdelTawab-frontend-developer.pdf"
+            variant="secondary"
+            size="lg"
+            icon={Download}
+          >
+            Download CV
+          </GlassButton>
         </motion.div>
       </Reveal>
 
@@ -107,9 +114,7 @@ export default function HeroSection() {
           />
           <span className="font-fira text-xs sm:text-sm text-gray">
             Currently working on{" "}
-            <span className="text-white font-semibold">
-              {currentWorking}
-            </span>
+            <span className="text-white font-semibold">{currentWorking}</span>
           </span>
         </motion.div>
       </RevealSlide>
