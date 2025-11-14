@@ -2,7 +2,6 @@
 
 import Dots from "@/components/ui/dots";
 import { personalInfo } from "@/data/personalInfo";
-import { projects } from "@/data/projects";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Reveal, { RevealSlide } from "@/components/ui/reveal";
