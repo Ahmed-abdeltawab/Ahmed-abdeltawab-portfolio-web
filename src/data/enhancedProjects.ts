@@ -91,7 +91,7 @@ export const enhancedProjects: Project[] = [
       "Collaborated on backend (Node.js), improving practical backend experience.",
     ],
     img: "/logo-diffusion1.webp",
-    links: [{ type: "github", url: "https://github.com", label: "View Code" }],
+    links: [{ type: "live", url: "https://logodiffusion.com/", label: "Live Demo" }],
     stats: {
       duration: "May 2025",
       // team: "Collaborative",

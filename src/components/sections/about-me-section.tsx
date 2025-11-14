@@ -1,6 +1,7 @@
 import SectionTitle from "@/components/ui/section-title";
 import Dots from "@/components/ui/dots";
 import Image from "next/image";
+import Link from "next/link";
 import { summary } from "@/data/summary";
 import { personalInfo } from "@/data/personalInfo";
 
@@ -17,9 +18,11 @@ export default function AboutMeSection() {
             <br />
             {summary}
           </p>
-          <button className="border border-primary px-3 py-2 sm:px-4 sm:py-2 font-fira font-medium text-xs sm:text-sm hover:bg-primary/10 transition-colors">
-            Read more -&gt;
-          </button>
+          <Link href="/about">
+            <button className="border border-primary px-3 py-2 sm:px-4 sm:py-2 font-fira font-medium text-xs sm:text-sm hover:bg-primary/10 transition-colors">
+              Read more -&gt;
+            </button>
+          </Link>
         </div>
 
         <div className="relative order-1 md:order-2">
